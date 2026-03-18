@@ -127,10 +127,15 @@ jobs:
           echo "App version: ${APP_VERSION}"
 
       - name: Restore CDK node_modules cache
+        id: cache-restore
         uses: actions/cache/restore@v4
         with:
           path: infrastructure/node_modules
           key: infrastructure-node-modules-${{ hashFiles('infrastructure/package-lock.json') }}
+
+      - name: Install CDK dependencies on cache miss
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        run: cd infrastructure && npm install
 
       - name: Build CDK
         run: |
@@ -199,10 +204,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Restore CDK node_modules cache
+        id: cache-restore
         uses: actions/cache/restore@v4
         with:
           path: infrastructure/node_modules
           key: infrastructure-node-modules-${{ hashFiles('infrastructure/package-lock.json') }}
+
+      - name: Install CDK dependencies on cache miss
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        run: cd infrastructure && npm install
 
       - name: Configure AWS credentials
         uses: ./.github/actions/configure-aws-credentials
@@ -257,10 +267,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Restore CDK node_modules cache
+        id: cache-restore
         uses: actions/cache/restore@v4
         with:
           path: infrastructure/node_modules
           key: infrastructure-node-modules-${{ hashFiles('infrastructure/package-lock.json') }}
+
+      - name: Install CDK dependencies on cache miss
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        run: cd infrastructure && npm install
 
       - name: Download synthesized templates
         uses: actions/download-artifact@v4
@@ -326,10 +341,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Restore CDK node_modules cache
+        id: cache-restore
         uses: actions/cache/restore@v4
         with:
           path: infrastructure/node_modules
           key: infrastructure-node-modules-${{ hashFiles('infrastructure/package-lock.json') }}
+
+      - name: Install CDK dependencies on cache miss
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        run: cd infrastructure && npm install
 
       - name: Download synthesized templates
         uses: actions/download-artifact@v4
