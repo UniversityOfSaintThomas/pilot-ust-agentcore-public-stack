@@ -92,6 +92,10 @@ jobs:
           path: infrastructure/node_modules
           key: infrastructure-node-modules-${{ hashFiles('infrastructure/package-lock.json') }}
 
+      - name: Install dependencies on cache miss
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        run: cd infrastructure && npm install
+
       - name: Build CDK
         run: |
           bash scripts/stack-infrastructure/build.sh
