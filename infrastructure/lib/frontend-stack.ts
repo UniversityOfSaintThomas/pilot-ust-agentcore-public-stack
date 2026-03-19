@@ -248,7 +248,7 @@ export class FrontendStack extends cdk.Stack {
     if (config.domainName) {
       // Look up the hosted zone
       const hostedZone = route53.HostedZone.fromLookup(this, 'HostedZone', {
-        domainName: config.domainName,
+        domainName: config.infrastructureHostedZoneDomain || config.domainName,
       });
 
       // Create A record aliasing to CloudFront
