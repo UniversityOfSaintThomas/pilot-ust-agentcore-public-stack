@@ -20,8 +20,8 @@ from agents.main_agent.core.system_prompt_builder import (
 class TestDefaultSystemPrompt:
     """Verify DEFAULT_SYSTEM_PROMPT contains expected key phrases."""
 
-    def test_contains_boisestate_ai(self):
-        assert "boisestate.ai" in DEFAULT_SYSTEM_PROMPT
+    def test_contains_university_identity(self):
+        assert "ust-ai-pilot.stthomas.edu" in DEFAULT_SYSTEM_PROMPT
 
     def test_contains_core_principles(self):
         assert "CORE PRINCIPLES" in DEFAULT_SYSTEM_PROMPT
